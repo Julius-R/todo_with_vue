@@ -1,5 +1,6 @@
 <template>
 	<section class="todo">
+		<todo-form />
 		<p v-if="todos.length <= 0">No todos!</p>
 		<ul class="todo_list">
 			<todo-item
@@ -14,10 +15,12 @@
 
 <script>
 import TodoItem from "./TodoItem.vue";
+import TodoForm from "./TodoForm.vue";
 export default {
 	name: "Todo",
 	components: {
-		TodoItem
+		TodoItem,
+		TodoForm
 	},
 	data() {
 		return {
@@ -28,8 +31,11 @@ export default {
 		};
 	},
 	methods: {
-		deleteTodo(todo) {
-			this.todos = this.todos.filter((t) => t.id !== todo.id);
+		deleteTodo(id) {
+			this.todos = this.todos.filter((todo) => todo.id !== id);
+		},
+		addTodo(todo) {
+			this.todos = [todo, ...this.todos];
 		}
 	}
 };
